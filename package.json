@@ -1,0 +1,15 @@
+{
+    "name": "bici-coruna-collector",
+    "version": "1.0.0",
+    "description": "Data collector for BiciCoruña - Smart City Analysis",
+    "main": "collector.js",
+    "scripts": {
+        "start": "node collector.js"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "dependencies": {},
+    "author": "Nathan",
+    "license": "MIT"
+}
