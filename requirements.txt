@@ -1,0 +1,30 @@
+# BiciPredict Coruña - Dependencias
+# Instalar con: pip install -r requirements.txt
+
+# Core
+pandas>=2.0.0
+numpy>=1.24.0
+pyarrow>=14.0.0  # Para archivos parquet
+
+# Machine Learning
+lightgbm>=4.0.0
+scikit-learn>=1.3.0
+joblib>=1.3.0
+
+# Descarga de datos
+requests>=2.31.0
+
+# Configuracion
+pyyaml>=6.0.1
+
+# Visualización (para dashboard)
+plotly>=5.18.0
+streamlit>=1.29.0
+
+# Opcional: para notebooks
+jupyter>=1.0.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Tests
+pytest>=7.4.0
