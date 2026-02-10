@@ -1,10 +1,10 @@
-# 📂 Estructura de Datos del Proyecto
+# Estructura de Datos del Proyecto
 
 Este directorio contiene los datasets utilizados para el análisis, predicción y optimización del sistema BiciCoruña.
 
 Para mantener el repositorio ligero y profesional, **solo se incluyen los datos fuente indispensables y resultados ligeros**. Los archivos intermedios pesados o binarios grandes deben ser regenerados ejecutando el pipeline.
 
-> 🛠️ **Ingeniería de Datos Propia**
+> **Ingeniería de Datos Propia**
 >
 > Este dataset **NO es un recurso público descargado**. Fue construido desde cero mediante un proceso de ingeniería de datos propia:
 > 1. **Monitorización continua** de la API en tiempo real.
@@ -13,7 +13,7 @@ Para mantener el repositorio ligero y profesional, **solo se incluyen los datos 
 >
 > Este esfuerzo convierte datos volátiles en tiempo real en un activo persistente de valor analítico.
 
-## 🗂️ Descripción de Carpetas
+## Descripción de Carpetas
 
 ### 1. `coruna/` (Fuente de Verdad)
 Contiene los datos crudos originales del sistema BiciCoruña. **Estos archivos son necesarios para ejecutar cualquier análisis.**
@@ -26,7 +26,7 @@ Datos complementarios obtenidos de fuentes externas (AEMET, Concello da Coruña,
 - `demografia_barrios.csv`: Datos sociodemográficos para análisis de equidad.
 - `historico_usuarios_*.csv`: Series temporales históricas para proyecciones a largo plazo.
 
-> 💡 **Nota:** Si faltan archivos aquí, ejecuta: `python src/utils/download_datos_externos.py`
+> **Nota:** Si faltan archivos aquí, ejecuta: `python src/utils/download_datos_externos.py`
 
 ### 3. `processed/` (Resultados)
 Contiene los *insights* procesados y resultados finales de los modelos.
@@ -34,7 +34,7 @@ Contiene los *insights* procesados y resultados finales de los modelos.
 - `ranking_nuevas_paradas.csv`: Listado priorizado de ubicaciones óptimas para nuevas estaciones.
 - `proyeccion_usuarios_*.csv`: Predicciones de demanda a futuro (2025-2026).
 
-> ⚠️ **Archivos Ignorados:** Los modelos entrenados (`.pkl`), predicciones masivas (`coruna_predictions.csv`) y datos de entrenamiento intermedios (`.parquet`) están excluidos del control de versiones por su tamaño. Para generarlos, ejecuta el pipeline completo.
+> **Archivos Ignorados:** Los modelos entrenados (`.pkl`), predicciones masivas (`coruna_predictions.csv`) y datos de entrenamiento intermedios (`.parquet`) están excluidos del control de versiones por su tamaño. Para generarlos, ejecuta el pipeline completo.
 
 ### 4. `raw/` (Transfer Learning - Ignorado)
 Directorio reservado para datasets crudos de otros sistemas (Madrid, Washington DC, Barcelona) utilizados para el *Transfer Learning*.
