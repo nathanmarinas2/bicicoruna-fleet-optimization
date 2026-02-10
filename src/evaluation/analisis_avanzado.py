@@ -73,7 +73,8 @@ def get_clusters_and_stats(df):
     X_scaled = scaler.fit_transform(pivot)
     
     # 3. Optimizar K
-    k_optimo = find_optimal_k(X_scaled)
+    # k_optimo = find_optimal_k(X_scaled)
+    k_optimo = 4 # Forzamos K=4 para alinearnos con la narrativa de negocio (Residencial, Trabajo, Ocio, Híbrido)
     
     # 4. Clustering Final
     kmeans = KMeans(n_clusters=k_optimo, random_state=42, n_init=10)
@@ -167,8 +168,8 @@ def generate_map_html(stations, flows, n_clusters):
 
         stations.forEach(s => {{
             let fill = '#F59E0B';
-            if (s.avg_occupancy < 0.3) fill = '#EF4444';
-            if (s.avg_occupancy > 0.6) fill = '#10B981';
+            if (s.occupancy < 0.3) fill = '#EF4444';
+            if (s.occupancy > 0.6) fill = '#10B981';
             
             L.circleMarker([s.lat, s.lon], {{
                 radius: 6,
@@ -181,7 +182,7 @@ def generate_map_html(stations, flows, n_clusters):
                 <div style="font-family:Inter; padding:5px;">
                     <b>${{s.name}}</b><br>
                     <span style="color:${{clusterColors[s.cluster]}}">● Cluster ${{s.cluster + 1}}</span><br>
-                    Ocupación: ${{(s.avg_occupancy*100).toFixed(0)}}%
+                    Ocupación: ${{(s.occupancy*100).toFixed(0)}}%
                 </div>
             `).addTo(map);
         }});

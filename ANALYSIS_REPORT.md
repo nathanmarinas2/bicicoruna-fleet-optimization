@@ -1,4 +1,4 @@
-# 📊 A Coruña Bike Sharing Analysis
+# A Coruña Bike Sharing Analysis
 
 > **Technical Report** derived from 8 days of high-frequency tracking data (27 Jan - 03 Feb 2026).
 
