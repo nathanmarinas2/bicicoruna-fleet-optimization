@@ -43,13 +43,15 @@ Directorio reservado para datasets crudos de otros sistemas (Madrid, Washington 
 
 ---
 
-## 🔄 Reproducibilidad
+## Reproducibilidad
 Para regenerar todos los archivos procesados a partir de los datos fuente:
 
 ```bash
-# Windows
-run_pipeline.bat
+# 1. Entrenar modelo de producción
+python src/models/classifier_final.py
 
-# Linux/Mac
-./run_pipeline.sh
+# 2. Generar análisis y visualizaciones
+python src/evaluation/analisis_bicicoruna.py
+python src/evaluation/analisis_codo.py
+python src/evaluation/optimizacion_flota.py
 ```

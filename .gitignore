@@ -36,15 +36,22 @@ data/processed/*
 # Logs
 *.log
 
+# Models - Only production model tracked
+*.joblib
+models/*.txt
+!models/classifier_final.txt
+
 # IDE
 .vscode/
 .idea/
 
 # Temp files
 *.tmp
+*.local_backup
 check_*.py
 movidas.txt
 resultados.txt
+tile_test.png
 
 # OS
 .DS_Store

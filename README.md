@@ -101,9 +101,10 @@ bicicoruna-fleet-optimization/
 ├── package.json             # Dependencias Node.js del colector
 │
 ├── data/
+│   ├── README.md            # Documentación de datos y reproducibilidad
 │   ├── coruna/              # Datos crudos de telemetría BiciCoruña
-│   ├── external/            # Datos externos (Barcelona, clima)
-│   └── processed/           # Datasets limpios y proyecciones generadas
+│   ├── external/            # Datos auxiliares (GeoJSON, demografía)
+│   └── processed/           # Insights ligeros y resultados clave
 │
 ├── src/
 │   ├── preprocessing/       # Limpieza y Feature Engineering
@@ -112,20 +113,22 @@ bicicoruna-fleet-optimization/
 │   ├── visualization/       # Mapas interactivos y gráficos
 │   └── utils/               # Config loader y time-based split
 │
-├── models/                  # Artefactos entrenados (.txt, .joblib)
+├── models/                  # Modelo de producción (classifier_final.txt)
 ├── dashboard/               # App Streamlit + mapas HTML (Leaflet)
 ├── reports/
 │   ├── figures/             # Gráficos generados (PNG)
 │   └── resumen_analisis.txt # Resumen ejecutivo del análisis
 │
-├── requirements.txt         # Dependencias Python
+├── ANALYSIS_REPORT.md       # Reporte técnico detallado
+├── MODEL_CARD.md            # Model Card (ML responsable)
 ├── SETUP.md                 # Guía de despliegue del colector
+├── requirements.txt         # Dependencias Python
 ├── LICENSE                  # MIT License
 └── README.md                # Documentación principal
 ```
 </details>
 
-> **Nota:** Puedes descargar una muestra del dataset procesado [aquí](data/coruna/tracking_data.csv).
+> **Nota:** El dataset principal de telemetría está incluido en el repositorio ([`data/coruna/tracking_data.csv`](data/coruna/tracking_data.csv)). Consulta [`data/README.md`](data/README.md) para más detalles.
 
 ---
 
@@ -399,7 +402,7 @@ pip install -r requirements.txt
 ```
 
 ### 11.2 Paso 2: Datos Listos (0 min)
-El repositorio incluye una muestra de datos procesados en `data/coruna/tracking_data.csv` para que **no tengas que esperar** al scraper en tiempo real. ¡Ya puedes trabajar!
+El repositorio incluye el dataset principal en `data/coruna/tracking_data.csv`. No necesitas ejecutar el scraper ni descargar nada extra.
 
 ### 11.3 Paso 3: Ejecutar Pipeline "End-to-End" (5 min)
 Ejecuta los scripts principales para entrenar el modelo y generar los análisis:
