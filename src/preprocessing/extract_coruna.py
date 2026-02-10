@@ -2,8 +2,10 @@ import pandas as pd
 from pathlib import Path
 
 # Rutas
-EXCEL_PATH = r'C:\Users\Nathan\Desktop\Universidad\Proyectos\bicicoruña\Bicicoruna_tracking.xlsx'
-OUTPUT_DIR = Path(r'C:\Users\Nathan\Desktop\Universidad\Proyectos\bicicoruña\data\coruna')
+# Rutas relativas al proyecto
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+EXCEL_PATH = BASE_DIR / "Bicicoruna_tracking.xlsx"  # Original source file (not included in repo)
+OUTPUT_DIR = BASE_DIR / "data" / "coruna"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 def prepare_coruna_data():

@@ -22,6 +22,12 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
+import sys
+
+# Add project root to Python path
+project_root = str(Path(__file__).parent.parent.parent)
+if project_root not in sys.path:
+    sys.path.append(project_root)
 from scipy.spatial.distance import cdist
 import warnings
 warnings.filterwarnings('ignore')

@@ -17,6 +17,14 @@ import shutil
 import warnings
 warnings.filterwarnings('ignore')
 
+import sys
+import os
+
+# Add project root to Python path to fix 'src' module not found
+project_root = str(Path(__file__).parent.parent.parent)
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
 from src.utils.config import load_config
 from src.utils.split import time_based_split
 
@@ -124,10 +132,14 @@ def main():
     df_coruna = prepare_coruna_improved()
     print(f"   Coruna: {len(df_coruna):,} filas, {df_coruna['will_be_empty'].mean()*100:.1f}% vacias")
     
-    print("\n2. Preparando datos de Barcelona...")
+    print("\n2. Preparando datos de Barcelona (Transfer Learning)...")
     df_bcn = prepare_barcelona()
+    
     if df_bcn is not None:
-        print(f"   Barcelona: {len(df_bcn):,} filas, {df_bcn['will_be_empty'].mean()*100:.1f}% vacias")
+        print(f"   [OK] Datos encontrados: {len(df_bcn):,} filas. Se usara Pre-entrenamiento.")
+    else:
+        print("   [INFO] No se encontraron datos de Barcelona (data/raw/barcelona).")
+        print("   --> OMITIENDO Transfer Learning. Entrenando exclusivamente con datos de Coruna (Rendimiento esperado similar).")
     
     # Split Coruna
     X_coruna = df_coruna[features]
