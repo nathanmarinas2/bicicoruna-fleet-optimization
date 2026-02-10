@@ -34,7 +34,7 @@
 
 ## 1. Resumen Ejecutivo
 
-Este proyecto aborda el desafío de **gestionar la disponibilidad** en una red de **79 estaciones** y **670 bicicletas** ([Fuente: Concello da Coruña](https://www.coruna.gal/bicicoruna/gl)). Mediante el análisis de datos históricos (scraping propio), se han logrado los siguientes hitos:
+Este proyecto aborda el desafío de **gestionar la disponibilidad** en una red de **79 estaciones** y **670 bicicletas** ([Fuente: Concello da Coruña](https://www.coruna.gal/bicicoruna/gl)). A diferencia de proyectos basados en datasets públicos preexistentes, **el dataset principal fue construido desde cero**: se diseñó y desplegó un scraper propio (`collector.js`) que monitoriza la API GBFS en tiempo real cada 5 minutos, consolidando miles de snapshots en una serie temporal histórica que no existía públicamente. Mediante el análisis de estos datos, se han logrado los siguientes hitos:
 
 *   **Identificación de Patrones (K=4):** Segmentación matemática de estaciones en 4 arquetipos funcionales (Residencial, Laboral, Ocio, Híbrido) validada mediante el método del codo.
 *   **Modelo Predictivo Efectivo:** Desarrollo de un clasificador **LightGBM** capaz de predecir la disponibilidad en un horizonte de **30 minutos** con un **F1-Score de 0.78** y **Accuracy del 87%**.

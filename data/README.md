@@ -4,6 +4,15 @@ Este directorio contiene los datasets utilizados para el análisis, predicción 
 
 Para mantener el repositorio ligero y profesional, **solo se incluyen los datos fuente indispensables y resultados ligeros**. Los archivos intermedios pesados o binarios grandes deben ser regenerados ejecutando el pipeline.
 
+> 🛠️ **Ingeniería de Datos Propia**
+>
+> Este dataset **NO es un recurso público descargado**. Fue construido desde cero mediante un proceso de ingeniería de datos propia:
+> 1. **Monitorización continua** de la API en tiempo real.
+> 2. **Consolidación** de miles de snapshots de estado del sistema.
+> 3. **Limpieza y estructuración** para crear una serie temporal histórica que no existía previamente.
+>
+> Este esfuerzo convierte datos volátiles en tiempo real en un activo persistente de valor analítico.
+
 ## 🗂️ Descripción de Carpetas
 
 ### 1. `coruna/` (Fuente de Verdad)
