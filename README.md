@@ -4,6 +4,9 @@
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Status](https://img.shields.io/badge/status-active-success.svg)
 
+[![Spanish](https://img.shields.io/badge/Language-Spanish-yellow)](README.md)
+[![English](https://img.shields.io/badge/Language-English-blue)](README_EN.md)
+
 </div>
 
 
