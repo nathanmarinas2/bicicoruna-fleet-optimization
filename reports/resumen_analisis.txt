@@ -1,0 +1,38 @@
+Resultados del Análisis de BiciCoruña
+=====================================
+Fecha de Análisis: Febrero 2026
+Ventana Temporal: 27 Enero 2026 - 03 Febrero 2026 (168.8 horas)
+
+1. Métricas Globales (Fuente: Concello da Coruña + Modelo)
+---------------------------------------------------------
+- Usuarios Activos: 16.462 (Oficial)
+- Flota Operativa: ~670 bicicletas (Oficial) / 650 estimadas (Modelo)
+- Disponibilidad Global: 97.2% (Modelo)
+- Impacto Ambiental: 76.2 Toneladas CO2/mes ahorradas (Oficial)
+
+2. Rendimiento del Modelo Predictivo (LightGBM)
+-----------------------------------------------
+- Objetivo: Predecir si una estación estará VACÍA en 30 minutos.
+- Estaciones Analizadas: 79 paradas
+- Métricas en Test (Threshold Optimizado < 5 bicis):
+    * F1-Score: 0.78 (Equilibrio Precisión/Recall)
+    * Accuracy: 87.1% (Tasa de acierto global)
+    * Precision: 0.82 (Confianza en la alerta)
+    * Recall: 0.75 (Capacidad de detección)
+
+3. Puntos Críticos Detectados (Top Offenders)
+---------------------------------------------
+Estaciones con mayor tiempo sin servicio (>10% del tiempo):
+1. Agra do Orzán (16.1% downtime) - Barrio residencial denso
+2. Gaiteira (11.7%) - Zona comercial
+3. Marineda City (10.7%) - Centro comercial / Trabajo
+4. Santa Margarita (10.5%) - Parque / Residencial
+5. Rosales III (10.4%) - Periferia residencial
+
+4. Insights Operativos
+----------------------
+- El sistema pierde 721 horas de servicio semanales por falta de stock.
+- Riesgo de Churn estimado: ~102.000€/año en usuarios frustrados.
+- Patrón pendular claro: Vaciado residencial 07:00-09:00 -> Llenado laboral.
+- Impacto Lluvia: Precipitación > 0.1mm reduce uso en -22%.
+- Recomendación de Flota: Adquirir +27 bicicletas (+4.2%) para cubrir picos de demanda.

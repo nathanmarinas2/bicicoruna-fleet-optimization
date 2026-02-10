@@ -1,21 +1,16 @@
-<p align="center">
-  <img src="assets/logo_bicicoruna.png" width="300" alt="BiciCoruña Logo">
-</p>
-
 <div align="center">
 
 ![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Status](https://img.shields.io/badge/status-active-success.svg)
 
 </div>
 
 
-# BiciCoruña: Optimización Inteligente de Movilidad Urbana y Predicción de Demanda
+# BiciCoruña: Análisis Predictivo de Disponibilidad en Sistemas de Bicicleta Compartida
 
 > **Ingeniería de datos aplicada a sistemas de bicicleta compartida.**  
-> Un estudio completo "End-to-End" que transforma datos crudos en decisiones de negocio: desde la ingestión en tiempo real (ETL) hasta la **predicción de roturas de stock** (LightGBM) y el diseño de **estrategias de rebalanceo inteligente** (Clustering & ROI Analysis).
+> Un estudio completo "End-to-End" que transforma datos crudos en decisiones de negocio: desde la ingestión en tiempo real (ETL) hasta la **predicción de roturas de stock** (LightGBM) y el diseño de **estrategias de rebalanceo** basadas en clustering y análisis de riesgo operativo.
 
 ---
 
@@ -25,7 +20,7 @@
 3. [Metodología y Experimentación](#3-metodología-y-experimentación)
 4. [Resultados y Métricas](#4-resultados-y-métricas)
 5. [Análisis Visual e Insights Operativos](#5-análisis-visual-e-insights-operativos)
-6. [Data Storytelling: 3 Curiosidades Humanizadoras](#6-data-storytelling-3-curiosidades-humanizadoras)
+6. [Insights de Negocio y Métricas Operativas](#6-insights-de-negocio-y-métricas-operativas)
 7. [Impacto de Negocio & ROI](#7-impacto-de-negocio--roi)
 8. [Conclusiones del Estudio](#8-conclusiones-del-estudio)
 9. [Stack Tecnológico](#9-stack-tecnológico)
@@ -39,10 +34,10 @@
 
 ## 1. Resumen Ejecutivo
 
-Este proyecto aborda el desafío de **gestionar la disponibilidad** en una red de 78 estaciones de bicicletas públicas. Mediante el análisis de datos históricos (scraping propio), se han logrado los siguientes hitos:
+Este proyecto aborda el desafío de **gestionar la disponibilidad** en una red de **79 estaciones** y **670 bicicletas** ([Fuente: Concello da Coruña](https://www.coruna.gal/bicicoruna/gl)). Mediante el análisis de datos históricos (scraping propio), se han logrado los siguientes hitos:
 
 *   **Identificación de Patrones (K=4):** Segmentación matemática de estaciones en 4 arquetipos funcionales (Residencial, Laboral, Ocio, Híbrido) validada mediante el método del codo.
-*   **Modelo Predictivo Efectivo:** Desarrollo de un clasificador **LightGBM** capaz de predecir la disponibilidad en un horizonte de **30 minutos** con un **F1-Score de 0.78** (superando al baseline histórico en un 85%).
+*   **Modelo Predictivo Efectivo:** Desarrollo de un clasificador **LightGBM** capaz de predecir la disponibilidad en un horizonte de **30 minutos** con un **F1-Score de 0.78** y **Accuracy del 87%**.
 *   **Optimización de Umbrales:** Redefinición del concepto de "estación vacía" (de 0 a <5 bicis) para mejorar la sensibilidad operativa y evitar roturas de stock.
 
 ---
@@ -66,7 +61,7 @@ El sistema sigue un flujo de datos modular y reproducible:
 
 ### 2.1 Características Clave
 *   **ETL Resiliente:** Scripts de recolección tolerantes a fallos y gaps de datos.
-*   **Pipeline Automatizado:** Script `run_pipeline.bat` que orquesta ETL, entrenamiento y generación de reportes.
+*   **Pipeline Reproducible:** Scripts Python modulares para ETL, entrenamiento y generación de reportes.
 *   **Visualización Premium:** Mapas interactivos con estética "Dark Mode" para monitorización en tiempo real.
 
 ### 2.2 Estructura del Repositorio
@@ -75,8 +70,9 @@ El sistema sigue un flujo de datos modular y reproducible:
 
 ```text
 ├── data/
-│   ├── raw/            # Datos crudos de BiciCoruña y OpenMeteo
-│   └── processed/      # Datasets limpios (Parquet/CSV)
+│   ├── coruna/         # Datos de telemetría de BiciCoruña
+│   ├── external/       # Datos históricos y externos
+│   └── processed/      # Datasets limpios y proyecciones
 ├── src/
 │   ├── models/         # Entrenamiento y evaluación (LightGBM)
 │   ├── preprocessing/  # Limpieza y Feature Engineering
@@ -85,7 +81,7 @@ El sistema sigue un flujo de datos modular y reproducible:
 │   └── utils/          # Configuración y helpers
 ├── dashboard/          # Frontend (HTML/JS) para visualización web
 ├── reports/            # Figuras y análisis generados
-└── run_pipeline.bat    # Orquestador principal
+└── README.md           # Documentación principal
 ```
 </details>
 
@@ -110,6 +106,8 @@ Un desafío crítico fue definir operativamente qué es una "estación vacía".
 *   **Resultado:** El modelo nativo de Coruña (**F1 0.783**) superó ligeramente al pre-entrenado (**F1 0.782**).
     *   *Conclusión:* El Transfer Learning introdujo sesgos topográficos negativos (ciudad plana vs ciudad con cuestas).
     *   *Valor:* Se descartó la complejidad arquitectónica en favor de un modelo local ligero y eficiente.
+    
+    *(Nota: Los scripts y datasets de este experimento comparativo se han archivado para mantener la ligereza del repositorio final).*
 
 ---
 
@@ -178,6 +176,7 @@ Identificamos claramente la "marea pendular" de la ciudad:
 ### 5.2 Ciclos Temporales (Heatmap Semanal)
 Análisis de densidad temporal que revela los hábitos de la ciudad.
 ![Weekly Heatmap](reports/figures/weekly_heatmap.png)
+
 ### 5.3 Impacto Meteorológico (Factores Exógenos)
 Correlacionamos los datos de uso con variables climáticas locales (`src/evaluation/analisis_clima.py`):
 *   **Lluvia:** Una precipitación > 0.1mm reduce la demanda en un **-22.2%**.
@@ -186,27 +185,38 @@ Correlacionamos los datos de uso con variables climáticas locales (`src/evaluat
 
 ---
 
-## 6. Data Storytelling: 3 Curiosidades Humanizadoras
+## 6. Insights de Negocio y Métricas Operativas
 
-Más allá de los algoritmos, los datos nos cuentan la historia de una ciudad viva. Estos son los insights que dan sentido al código:
+Análisis de KPIs clave para evaluar el rendimiento del sistema y su impacto social:
 
-### 6.1 Impacto Ambiental (La "Metricola" Verde)
-Basado en el volumen de uso mensual (~145k viajes) y una distancia media de 2.5km:
-> **25.2 Toneladas de CO2 ahorradas al mes.**
-> *Equivalente a retirar ~700 coches de la Avenida de Alfonso Molina cada día.*
+### 6.1 Impacto Ambiental ([Datos Oficiales 2025](https://www.coruna.gal/bicicoruna/gl))
+Basado en estadísticas del servicio: **16.462 usuarios activos**, **1.728.835 usos en 2025**, **5.124.239 km recorridos**.
+> **76.2 Toneladas de CO2 ahorradas al mes.**
+> 
+> *   **Equivalencia Local:** Este ahorro equivale a eliminar **4.320 trayectos diarios** de coches por la Avenida Alfonso Molina (el 7.8% de su tráfico medio).
+> *   **Impacto Visual:** Equivale a retirar de la circulación una caravana ininterrumpida de **200 coches** (casi 1 km de atasco) cada mes.
+> *Dato validado con el récord histórico de 2025 (1.7M usos). Fuente: [Estadísticas BiciCoruña - Concello da Coruña](https://www.coruna.gal/bicicoruna/gl).*
 
-### 6.2 Salud del Sistema (KPI Único)
+### 6.2 Resiliencia del Sistema (Service Level)
 A pesar de los cuellos de botella detectados, la resiliencia de la red es alta:
 *   **Disponibilidad Global:** **97.2%** (El usuario encuentra bici el 97% de las veces).
-*   **Talón de Aquiles:** Ese **2.8%** de fallo se concentra en solo 5 estaciones críticas (Agra do Orzán, etc.), lo que valida nuestra estrategia de focalizar recursos (Pareto 80/20).
+*   **Concentración del Fallo:** El **2.8%** de indisponibilidad se concentra en 5 nodos críticos, validando una estrategia de rebalanceo focalizada (Principio de Pareto).
 
-### 6.3 El "Pulso" de Coruña
-La ciudad se comporta como un organismo vivo:
-*   **Inhalación (07:00 - 09:00):** Absorción masiva de bicicletas desde la periferia hacia el centro y zonas universitarias.
-*   **Exhalación (14:00 - 16:00):** Dispersión centrífuga de retorno a los barrios.
+### 6.3 Dinámica de Flujos Pendulares
+La red exhibe un comportamiento biológico cíclico:
+*   **Flujo Centrípeto (07:00 - 09:00):** Movimiento masivo desde áreas residenciales hacia zonas laborales y universitarias.
+*   **Flujo Centrífugo (14:00 - 16:00):** Dispersión de retorno hacia la periferia.
+
 
 ![Timelapse Preview](assets/timelapse_preview.gif)
 > *Visualización interactiva disponible en `dashboard/timelapse_premium.html`.*
+
+### 6.4 Predicción de Futuro: Saturación y Expansión
+Hemos modelado el futuro del sistema basándonos en datos históricos y algoritmos de optimización.
+
+**Proyección de Capacidad (Saturación 2026):**
+El modelo logístico predice que, con la red actual, **BiciCoruña tocará techo en ~17.000 usuarios**. El crecimiento explosivo post-electrificación se ha frenado, entrando en una fase de meseta.
+![Predicción Crecimiento](reports/figures/prediccion_crecimiento_usuarios.png)
 
 ---
 
@@ -248,8 +258,8 @@ Cálculo de la capacidad necesaria para eliminar las faltas de servicio basándo
 
 *   **Guía rápida de lectura:** 
     *   **Línea Verde (Oferta):** Bicis aparcadas en estaciones. Cuando baja, la ciudad está usando el servicio.
-    *   **Área Roja (Déficit):** Representa el "hambre" de bicis; lo que nos falta para que ninguna estación se quede vacía.
-*   **Diagnóstico:** El pico real de déficit ocurre los **Lunes a las 08:42 AM** y es de **27 unidades**.
+    *   **Área Roja (Déficit):** Calculada mediante **Test de Estrés Matricial**. Representa la suma instantánea de bicicletas que faltan en toda la red para garantizar un **Safety Buffer de 2 unidades** en cada estación.
+*   **Diagnóstico:** El pico real de déficit ocurre los **Lunes a las 08:42 AM** y llega a las **27 unidades** (insatisfecho con la flota actual de 650).
 *   **Recomendación:** Ampliación selectiva de flota de **27 unidades (+4.2%)** para alcanzar una flota total de **666 bicicletas** y estabilizar el sistema.
 
 ### 7.6 Diagnóstico de Infraestructura Crítica (Top Offenders)
@@ -275,24 +285,23 @@ Detectamos Zonas Muertas mediante análisis de varianza. Mientras que la **desvi
 | **O Birloque** | 4.5 | 4 | **1.3** | Flujo residual. Muy por debajo del dinamismo de la red. |
 
 
-### 7.8 Playbook para el Operador (Toma de Decisiones)
-Si mañara fueras el COO de BiciCoruña, estas serían tus 3 reglas de oro basadas en este análisis:
+### 7.8 Recomendaciones Estratégicas (Action Plan)
+Basado en los resultados del modelo, se proponen las siguientes acciones operativas:
 
-1.  **La Regla del 08:30 (Rebalanceo Preventivo):**
+1.  **Rebalanceo Preventivo (08:30 AM):**
     *   *Acción:* Llenar al 100% *Agra do Orzán* y *Os Mallos* antes de las 07:00 AM.
     *   *Por qué:* Son las fuentes de la "marea" matutina; si empiezan vacías, se pierde el 40% de los viajes del día.
 
-2.  **La Alerta de Lluvia (Gestión de Demanda):**
+2.  **Gestión de Demanda por Clima:**
     *   *Acción:* Si previsión lluvia > 0.5mm, reducir flota operativa en calle y priorizar mantenimiento en taller.
     *   *Por qué:* La demanda caerá un 22% instantáneamente. No desgastes material innecesariamente.
 
-3.  **Foco en el "Cuello de Botella" (Infraestructura):**
+3.  **Mitigación de Cuellos de Botella:**
     *   *Acción:* No envíes más bicis a *Plaza Indalecio Prieto* a partir de las 18:00.
     *   *Por qué:* Estará al 87% de ocupación. Es un sumidero bloqueado; cualquier bici extra será devuelta.
 
----
 
-### 7.9 Limitaciones y Validez del Estudio (Honestidad Intelectual)
+### 7.9 Alcance y Limitaciones del Estudio
 Para garantizar el rigor científico, es crucial declarar el alcance de los datos:
 
 *   **Ventana Temporal:** 27 Enero 2026 (20:50) - 03 Febrero 2026 (21:38). Total: **168.8 horas (1 semana exacta)**.
@@ -307,7 +316,7 @@ La triangulación de datos predictivos, operativos y financieros permite afirmar
 
 1.  **Tecnología Viable:** No hace falta "Big Data" masivo ni Deep Learning complejo. Un modelo **LightGBM local** bien optimizado (Features de ingeniería) supera a enfoques generalistas, logrando predecir la disponibilidad a **30 minutos** con suficiente fiabilidad (**F1 0.78**) para uso operativo.
 2.  **Eficiencia vs Cobertura:** El sistema es globalmente robusto (**97% disponibilidad**), pero sufre de una desigualdad estructural crítica. El centro funciona; los barrios periféricos (Agra do Orzán) asumen todo el coste de la falta de servicio (**721 horas/semana perdidas**).
-3.  **Sostenibilidad Real:** BiciCoruña actúa como un "pulmón artificial" que retira contaminación (**25 Toneladas CO2/mes**), validando su retorno social más allá de la rentabilidad económica directa.
+3.  **Sostenibilidad Real:** BiciCoruña actúa como un "pulmón artificial" que retira contaminación (**76 Toneladas CO2/mes**), validando su retorno social más allá de la rentabilidad económica directa.
 4.  **Accionabilidad:** La solución al problema no es simplemente "comprar más bicis", sino **redistribuir inteligentemente** las existentes (Plan de 27 unidades) y atacar los cuellos de botella geográficos identificados.
 
 ---
@@ -352,15 +361,26 @@ pip install -r requirements.txt
 ### 11.2 Paso 2: Datos Listos (0 min)
 El repositorio incluye una muestra de datos procesados en `data/coruna/tracking_data.csv` para que **no tengas que esperar** al scraper en tiempo real. ¡Ya puedes trabajar!
 
-### 11.3 Paso 3: Ejecutar Pipeline "End-to-End" (3 min)
-Lanza el orquestador automático. Este script entrenará el modelo LightGBM desde cero y generará los 3 mapas HTML nuevos.
-```cmd
-.\run_pipeline.bat
+### 11.3 Paso 3: Ejecutar Pipeline "End-to-End" (5 min)
+Ejecuta los scripts principales para entrenar el modelo y generar los análisis:
+
+```bash
+# 1. Entrenar el clasificador final (Transfer Learning + Fine-Tuning)
+python src/models/classifier_final.py
+
+# 2. Generar análisis de negocio y visualizaciones
+python src/evaluation/analisis_bicicoruna.py
+python src/evaluation/analisis_codo.py
+python src/evaluation/optimizacion_flota.py
+
+# 3. (Opcional) Lanzar dashboard interactivo
+streamlit run dashboard/app.py
 ```
 
 > **Output esperado:**
 > *   Modelo entrenado en `models/classifier_final.txt`
-> *   Reporte de negocio en `ANALYSIS_REPORT.md`
+> *   Reporte de negocio en `reports/resumen_analisis.txt`
+> *   Figuras de análisis en `reports/figures/`
 > *   Dashboard interactivo en `dashboard/mapa_flujos.html`
 
 ---
@@ -381,8 +401,8 @@ Uso permitido para fines académicos y comerciales con atribución.
 
 ## 14. Autor
 
-**Nathan Marinas**  
-[LinkedIn](https://linkedin.com/in/nathanmarinas) • [GitHub](https://github.com/nathanmarinas2)
+**Nathan Mariñas Pose**  
+[LinkedIn](https://www.linkedin.com/in/nathan-marinas-pose/) • [GitHub](https://github.com/nathanmarinas2)
 
 ---
 *Proyecto desarrollado con fines académicos y de investigación en movilidad sostenible.*
